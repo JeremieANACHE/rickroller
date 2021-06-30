@@ -6,3 +6,8 @@ export const loadCharacters = () =>
     .then((response) => {
       return response;
     });
+
+export const loadCharactersFromUrl = (url) =>
+  apiClient.get(url).then((response) => {
+    return response;
+  });

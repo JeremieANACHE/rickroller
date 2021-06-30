@@ -19,14 +19,14 @@
   justify-content: center;
   background-color: #52b69a;
   overflow: hidden;
-  max-width: 300px;
   height: 64px;
+  width: auto;
 
   &-background {
     position: absolute;
     z-index: -1;
-    top: -115px;
-    left: -35px;
+    top: -145px;
+    left: -75px;
     width: 350px;
     height: 350px;
     background: linear-gradient(180deg, #0048ff, #bdf52f);
@@ -40,10 +40,6 @@
 }
 
 .mask-container {
-  position: relative;
-  display: block;
-  max-width: 300px;
-
   &::before,
   &::after {
     content: "";
@@ -83,6 +79,7 @@ img {
 
 .logo {
   margin: auto;
-  max-width: 300px;
+  height: 64px;
+  width: auto;
 }
 </style>

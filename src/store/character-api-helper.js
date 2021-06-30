@@ -45,4 +45,5 @@ export default {
   mutations,
   actions,
   initialState,
+  namespaced: true,
 };

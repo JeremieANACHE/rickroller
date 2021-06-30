@@ -26,7 +26,7 @@ export default {
     this.fetchCharacters();
     this.debouncedFetch = debounce(
       () => {
-        console.log("TODO implement fetch");
+        this.fetchMoreCharacters();
       },
       1000,
       { leading: true }
@@ -42,7 +42,10 @@ export default {
   },
 
   methods: {
-    ...mapActions("characters", { fetchCharacters: "fetchCharacters" }),
+    ...mapActions("characters", {
+      fetchCharacters: "fetchCharacters",
+      fetchMoreCharacters: "fetchMoreCharacters",
+    }),
 
     scroll() {
       window.onscroll = () => {
