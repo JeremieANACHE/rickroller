@@ -1,0 +1,31 @@
+$mu: 16px;
+$base-background-color: #fafafa !default;
+$base-font-color: #263238 !default;
+
+$theme-colors: (
+  primary: (
+    900: #184e77,
+    800: #1e6091,
+    700: #1a759f,
+    base: #168aad,
+    100: #b4e7f2,
+    50: #e1f6fa
+  ),
+  secondary: (
+    base: #34a0a4,
+    400: #52b69a,
+    300: #76c893,
+    200: #99d98c,
+    100: #b5e48c,
+    50: #d9ed92
+  ),
+  success: (
+    base: #27ae60,
+  ),
+  warning: (
+    base: #f2994a,
+  ),
+  error: (
+    base: #eb5757,
+  ),
+);

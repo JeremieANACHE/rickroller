@@ -25,9 +25,10 @@ const mutations = {
 
 const actions = {
   fetchCharacters: ({ commit }) => {
-    return loadCharacters().then((characterList) => {
-      commit("setCharacters", characterList);
-      return characterList;
+    return loadCharacters().then((result) => {
+      commit("setCharacters", result.data.results);
+      commit("setInfos", result.data.info);
+      return result;
     });
   },
 };
@@ -41,4 +42,5 @@ export default {
   actions,
   modules,
   initialState,
+  namespaced: true,
 };

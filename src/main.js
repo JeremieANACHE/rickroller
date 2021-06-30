@@ -8,6 +8,7 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
+  icons: { iconFont: "mdiSvg" },
   render: function (h) {
     return h(App);
   },

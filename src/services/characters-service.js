@@ -4,5 +4,5 @@ export const loadCharacters = () =>
   apiClient
     .get("https://rickandmortyapi.com/api/character")
     .then((response) => {
-      console.log(response);
+      return response;
     });

@@ -26,15 +26,15 @@
     position: absolute;
     z-index: -1;
     top: -115px;
-    left: 0;
-    width: 300px;
-    height: 300px;
+    left: -35px;
+    width: 350px;
+    height: 350px;
     background: linear-gradient(180deg, #0048ff, #bdf52f);
     background-image: url("../../assets/portal.png");
     background-size: 100% 100%;
     background-position-x: center;
     background-position-y: center;
-    animation: rotation 3s infinite linear;
+    animation: rotation 4s infinite linear;
     will-change: transform;
   }
 }

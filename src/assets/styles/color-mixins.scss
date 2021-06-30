@@ -1,0 +1,6 @@
+@import "~@/assets/styles/variables";
+
+@function theme-color($color-key: primary, $color-weight: base) {
+  $map: map-get($theme-colors, $color-key);
+  @return map-get($map, $color-weight);
+}

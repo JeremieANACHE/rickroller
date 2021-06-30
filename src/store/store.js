@@ -4,11 +4,9 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-export default {
-  store: new Vuex.Store({
-    strict: true,
-    modules: {
-      characters,
-    },
-  }),
-};
+export const store = new Vuex.Store({
+  strict: true,
+  modules: {
+    characters,
+  },
+});
