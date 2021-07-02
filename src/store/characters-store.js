@@ -36,12 +36,13 @@ const mutations = {
 };
 
 const actions = {
-  fetchCharacters: ({ commit, rootGetters }) => {
+  fetchCharacters: ({ commit, dispatch, rootGetters }) => {
     commit("setIsLoadingCharacters", true);
     const url = rootGetters["characters/filters/getFilteredSearchUrl"];
     console.log("fetching");
     return loadCharactersFromUrl(url)
       .then((result) => {
+        console.log(result);
         const resultInfos = {
           totalCharacters: result.data.info.count,
           totalPages: result.data.info.pages,
@@ -49,7 +50,7 @@ const actions = {
           previousPageUrl: result.data.info.prev,
         };
         commit("setCharacters", result.data.results);
-        commit("apiInfos/setInfos", resultInfos);
+        dispatch("apiInfos/setInfos", resultInfos);
         return result;
       })
       .finally(() => {

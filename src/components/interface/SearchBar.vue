@@ -42,9 +42,8 @@ export default {
   },
 
   methods: {
-    ...mapActions("characters", {
+    ...mapActions("characters/filters", {
       updateCharacterNameFilter: "updateCharacterNameFilter",
-      fetchCharacters: "fetchCharacters",
     }),
 
     search() {

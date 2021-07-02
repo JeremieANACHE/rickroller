@@ -13,9 +13,11 @@ const getters = {
   getStatusFilter: (state) => state.statusFilter,
   getGenderFilter: (state) => state.genderFilter,
   getFilteredSearchUrl: (state) => {
-    const queryString = generateQueryString(state);
-    console.log(queryString);
-    console.log(process.env.VUE_APP_API_CHARACTER_ENDPOINT);
+    const queryString = generateQueryString({
+      name: state.characterNameFilter,
+      status: state.statusFilter,
+      gender: state.genderFilter,
+    });
     return queryString.length > 0
       ? `${process.env.VUE_APP_API_CHARACTER_ENDPOINT}?${queryString}`
       : process.env.VUE_APP_API_CHARACTER_ENDPOINT;
@@ -37,8 +39,9 @@ const mutations = {
 };
 
 const actions = {
-  updateCharacterNameFilter: ({ commit }, characterNameFilter) => {
+  updateCharacterNameFilter: ({ commit, dispatch }, characterNameFilter) => {
     commit("setCharacterNameFilter", characterNameFilter);
+    dispatch("characters/fetchCharacters", null, { root: true });
   },
   updateStatusFilter: ({ commit }, statusFilter) => {
     commit("setStatusFilter", statusFilter);

@@ -4,6 +4,7 @@
       <fade-transition>
         <div v-if="!isLoadingCharacters">
           <search-bar @search="searchCharacter($event)" />
+          <alive-status-filter />
         </div>
       </fade-transition>
     </div>
@@ -30,13 +31,19 @@
 
 <script>
 import CharacterListCard from "@/components/characters/CharacterListCard";
-import SearchBar from "@/components/interface/SearchBar.vue";
+import SearchBar from "@/components/interface/SearchBar";
+import AliveStatusFilter from "@/components/interface/filters/AliveStatusFilter";
 import FadeTransition from "@/transitions/FadeTransition";
 import { mapActions, mapGetters } from "vuex";
 import { debounce } from "lodash";
 
 export default {
-  components: { CharacterListCard, SearchBar, FadeTransition },
+  components: {
+    CharacterListCard,
+    SearchBar,
+    FadeTransition,
+    AliveStatusFilter,
+  },
 
   created() {
     this.fetchCharacters();
