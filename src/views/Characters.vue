@@ -1,26 +1,42 @@
 <template>
   <div class="--rickroller-character-list-wrapper">
     <div class="--rickroller-search-wrapper">
-      <input type="text" /> <button>search</button>
+      <fade-transition>
+        <div v-if="!isLoadingCharacters">
+          <search-bar @search="searchCharacter($event)" />
+        </div>
+      </fade-transition>
     </div>
-    <div class="--rickroller-character-list-cards-wrapper">
+    <transition-group
+      name="rotate"
+      tag="div"
+      class="--rickroller-character-list-cards-wrapper"
+    >
       <character-list-card
         v-for="character in charactersList"
         :key="character.id"
         :character="character"
       />
-    </div>
+    </transition-group>
+    <img
+      src="@/assets/images/portal.png"
+      alt="loading"
+      class="loader"
+      v-if="isLoadingCharacters"
+    />
     <span class="--rickroller-character-list-end" />
   </div>
 </template>
 
 <script>
 import CharacterListCard from "@/components/characters/CharacterListCard";
+import SearchBar from "@/components/interface/SearchBar.vue";
+import FadeTransition from "@/transitions/FadeTransition";
 import { mapActions, mapGetters } from "vuex";
 import { debounce } from "lodash";
 
 export default {
-  components: { CharacterListCard },
+  components: { CharacterListCard, SearchBar, FadeTransition },
 
   created() {
     this.fetchCharacters();
@@ -38,7 +54,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters("characters", { charactersList: "getCharacters" }),
+    ...mapGetters("characters", {
+      charactersList: "getCharacters",
+      isLoadingCharacters: "getIsLoadingCharacters",
+    }),
   },
 
   methods: {
@@ -77,6 +96,12 @@ export default {
 .--rickroller-character-list-wrapper {
   padding: 4 * $mu 0;
 
+  .--rickroller-search-wrapper {
+    position: sticky;
+    top: 2 * $mu;
+    z-index: 2;
+  }
+
   .--rickroller-character-list-cards-wrapper {
     padding: 4 * $mu 0;
     width: 100%;
@@ -84,5 +109,26 @@ export default {
     justify-content: space-evenly;
     flex-wrap: wrap;
   }
+
+  .loader {
+    animation: rotation 4s infinite linear;
+  }
+}
+
+.rotate-enter {
+  transform: perspective(3000px) rotate3d(0, 1, 0, 90deg);
+}
+
+.rotate-enter-active,
+.rotate-leave-active {
+  transition: 1s;
+}
+
+.rotate-leave-to {
+  transform: perspective(3000px) rotate3d(0, 1, 0, -90deg);
+}
+
+.rotate-move {
+  transition: transform 1s;
 }
 </style>

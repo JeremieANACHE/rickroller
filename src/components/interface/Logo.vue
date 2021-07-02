@@ -4,13 +4,15 @@
       <div class="container-background"></div>
 
       <div class="mask-container">
-        <img src="@/assets/logo.png" class="logo" />
+        <img src="@/assets/images/logo.png" class="logo" />
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
+@import "~@/assets/styles/variables";
+
 .container {
   position: relative;
   z-index: 0;
@@ -30,7 +32,7 @@
     width: 350px;
     height: 350px;
     background: linear-gradient(180deg, #0048ff, #bdf52f);
-    background-image: url("../../assets/portal.png");
+    background-image: url("../../assets/images/portal.png");
     background-size: 100% 100%;
     background-position-x: center;
     background-position-y: center;
@@ -62,15 +64,6 @@
 img {
   width: 100%;
   height: auto;
-}
-
-@keyframes rotation {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(359deg);
-  }
 }
 
 .dark {
