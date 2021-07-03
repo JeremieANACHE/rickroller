@@ -3,9 +3,11 @@
     <div class="--rickroller-search-wrapper">
       <fade-transition>
         <div class="--rickroller-filters-holder">
-          <alive-status-filter />
+          <div>
+            <alive-status-filter />
+            <gender-filter />
+          </div>
           <search-bar />
-          <gender-filter />
         </div>
       </fade-transition>
     </div>
@@ -118,12 +120,13 @@ export default {
 
     .--rickroller-filters-holder {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
-      justify-content: center;
+      justify-content: space-evenly;
       height: 100%;
 
       .--rickroller-filter-list-wrapper {
-        margin: 0 $mu;
+        margin: $mu;
       }
     }
   }

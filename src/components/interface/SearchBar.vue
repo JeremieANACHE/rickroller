@@ -58,11 +58,8 @@ export default {
 @import "~@/assets/styles/color-mixins";
 
 .--rickroller-searchbar-wrapper {
-  height: 100%;
   height: 3 * $mu;
-  width: fit-content;
   padding: $mu;
-  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,7 +78,8 @@ export default {
   .--rickroller-searchbar-input {
     border: none;
     border-bottom: 1px solid lightgrey;
-    font-size: 34px;
+    width: 230px;
+    font-size: 28px;
   }
 
   .--rickroller-search-button {
