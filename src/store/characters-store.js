@@ -110,7 +110,7 @@ const actions = {
       .catch((error) => {
         dispatch("updateSelectedCharacter", {});
         throw error;
-      })
+      });
   },
 
   updateSelectedCharacter: ({ commit, dispatch }, character) => {

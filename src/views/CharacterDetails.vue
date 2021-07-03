@@ -32,11 +32,13 @@
               </p>
 
               <p class="--rickroller-character-details-single-info-line">
-                <b class="--rickroller-character-info-label">Location:</b> {{ selectedCharacter.location.name }}
+                <b class="--rickroller-character-info-label">Location:</b>
+                {{ selectedCharacter.location.name }}
               </p>
 
               <p class="--rickroller-character-details-single-info-line">
-                <b class="--rickroller-character-info-label">Origin:</b> {{ selectedCharacter.origin.name }}
+                <b class="--rickroller-character-info-label">Origin:</b>
+                {{ selectedCharacter.origin.name }}
               </p>
 
               <p class="--rickroller-character-details-single-info-line">
