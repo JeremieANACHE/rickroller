@@ -1,5 +1,5 @@
 <template>
-  <div class="--rickroller-character-card">
+  <div class="--rickroller-character-card" @click="selectCharacter(character)">
     <div class="--rickroller-character-image-wrapper">
       <div
         class="--rickroller-character-image"
@@ -45,6 +45,7 @@ import AliveStatusIcon from "@/components/characters/AliveStatusIcon";
 import GenderIcon from "@/components/characters/GenderIcon";
 import Icon from "@/components/interface/Icon";
 import { mdiFaceRecognition, mdiEarth } from "@mdi/js";
+import { mapActions } from "vuex";
 export default {
   components: { AliveStatusIcon, GenderIcon, Icon },
 
@@ -61,6 +62,20 @@ export default {
       required: true,
     },
   },
+
+  methods: {
+    ...mapActions("characters", {
+      updateSelectedCharacter: "updateSelectedCharacter",
+    }),
+
+    selectCharacter(character) {
+      this.updateSelectedCharacter(character);
+      this.$router.push({
+        name: "CharacterDetails",
+        params: { id: character.id },
+      });
+    },
+  },
 };
 </script>
 
@@ -69,6 +84,7 @@ export default {
 @import "~@/assets/styles/variables";
 
 .--rickroller-character-card {
+  cursor: pointer;
   margin: 2 * $mu $mu;
   width: 300px;
   height: 300px;

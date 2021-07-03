@@ -1,11 +1,20 @@
 import apiInfos from "@/store/character-api-helper";
 import filters from "@/store/filters-store";
 
-import { loadCharactersFromUrl } from "@/services/characters-service";
+import {
+  loadCharactersFromUrl,
+  loadCharacterById,
+} from "@/services/characters-service";
+
+import {
+  loadEpisodes,
+  generateEpisodeIdList,
+} from "@/services/episodes-service";
 
 const initialState = {
   characters: [],
   selectedCharacter: {},
+  selectedCharacterEpisodeList: [],
   isLoadingCharacters: false,
 };
 
@@ -14,6 +23,8 @@ const state = () => ({ ...initialState });
 const getters = {
   getCharacters: (state) => state.characters,
   getSelectedCharacter: (state) => state.selectedCharacter,
+  getSelectedCharacterEpisodeList: (state) =>
+    state.selectedCharacterEpisodeList,
   getIsLoadingCharacters: (state) => state.isLoadingCharacters,
 };
 
@@ -30,8 +41,12 @@ const mutations = {
     Object.assign(state, { selectedCharacter });
   },
 
-  setIsLoadingCharacters: (state, isLoading) => {
-    state.isLoadingCharacters = isLoading;
+  setSelectedCharacterEpisodeList: (state, selectedCharacterEpisodeList) => {
+    Object.assign(state, { selectedCharacterEpisodeList });
+  },
+
+  setIsLoadingCharacters: (state, isLoadingCharacters) => {
+    Object.assign(state, { isLoadingCharacters });
   },
 };
 
@@ -83,6 +98,41 @@ const actions = {
           commit("setIsLoadingCharacters", false);
         });
     }
+  },
+
+  fetchCharacterById: ({ commit, dispatch }, characterId) => {
+    commit("setIsLoadingCharacters", true);
+
+    return loadCharacterById(characterId)
+      .then((character) => {
+        dispatch("updateSelectedCharacter", character.data);
+      })
+      .catch((error) => {
+        dispatch("updateSelectedCharacter", {});
+        throw error;
+      })
+  },
+
+  updateSelectedCharacter: ({ commit, dispatch }, character) => {
+    dispatch("loadSelectedCharacterEpisodes", character);
+    commit("setSelectedCharacter", character);
+  },
+
+  loadSelectedCharacterEpisodes: ({ commit }, character) => {
+    commit("setIsLoadingCharacters", true);
+    loadEpisodes(generateEpisodeIdList(character.episode))
+      .then((episodeList) => {
+        episodeList.data.length > 0
+          ? commit("setSelectedCharacterEpisodeList", episodeList.data)
+          : commit("setSelectedCharacterEpisodeList", [episodeList.data]);
+      })
+      .catch((error) => {
+        commit("setSelectedCharacterEpisodeList", []);
+        throw error;
+      })
+      .finally(() => {
+        commit("setIsLoadingCharacters", false);
+      });
   },
 };
 

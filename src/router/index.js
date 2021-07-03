@@ -13,7 +13,16 @@ const routes = [
     name: "Characters",
     component: function () {
       return import(
-        /* webpackChunkName: "characters" */ "../views/Characters.vue"
+        /* webpackChunkName: "characters" */ "@/views/Characters.vue"
+      );
+    },
+  },
+  {
+    path: "/characters/:id",
+    name: "CharacterDetails",
+    component: function () {
+      return import(
+        /* webpackChunkName: "character-details" */ "@/views/CharacterDetails.vue"
       );
     },
   },

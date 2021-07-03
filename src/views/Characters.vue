@@ -4,13 +4,13 @@
       <fade-transition>
         <div class="--rickroller-filters-holder">
           <alive-status-filter />
-          <search-bar @search="searchCharacter($event)" />
+          <search-bar />
           <gender-filter />
         </div>
       </fade-transition>
     </div>
     <transition-group
-      name="rotate"
+      name="fade"
       tag="div"
       class="--rickroller-character-list-cards-wrapper"
     >
@@ -20,12 +20,7 @@
         :character="character"
       />
     </transition-group>
-    <img
-      src="@/assets/images/portal.png"
-      alt="loading"
-      class="loader"
-      v-if="isLoadingCharacters"
-    />
+    <loader v-if="isLoadingCharacters" />
     <span class="--rickroller-character-list-end" />
   </div>
 </template>
@@ -33,8 +28,9 @@
 <script>
 import CharacterListCard from "@/components/characters/CharacterListCard";
 import SearchBar from "@/components/interface/SearchBar";
+import Loader from "@/components/interface/Loader";
 import AliveStatusFilter from "@/components/interface/filters/AliveStatusFilter";
-import FadeTransition from "@/transitions/FadeTransition";
+import FadeTransition from "@/assets/transitions/FadeTransition";
 import { mapActions, mapGetters } from "vuex";
 import { debounce } from "lodash";
 import GenderFilter from "@/components/interface/filters/GenderFilter.vue";
@@ -43,6 +39,7 @@ export default {
   components: {
     CharacterListCard,
     SearchBar,
+    Loader,
     FadeTransition,
     AliveStatusFilter,
     GenderFilter,
@@ -60,6 +57,7 @@ export default {
   },
 
   mounted() {
+    this.updateCharacterNameFilter(undefined);
     this.scroll();
   },
 
@@ -74,6 +72,10 @@ export default {
     ...mapActions("characters", {
       fetchCharacters: "fetchCharacters",
       fetchMoreCharacters: "fetchMoreCharacters",
+    }),
+
+    ...mapActions("characters/filters", {
+      updateCharacterNameFilter: "updateCharacterNameFilter",
     }),
 
     scroll() {
@@ -112,6 +114,7 @@ export default {
     position: sticky;
     top: 0;
     z-index: 2;
+    box-shadow: 0px 20px 20px 0px white;
 
     .--rickroller-filters-holder {
       display: flex;
@@ -132,12 +135,33 @@ export default {
     justify-content: space-evenly;
     flex-wrap: wrap;
   }
-
-  .loader {
-    animation: rotation 4s infinite linear;
-  }
+}
+.fade-enter-active,
+.fade-leave-active,
+.fade-move {
+  transition: 500ms cubic-bezier(0.59, 0.12, 0.34, 0.95);
+  transition-property: opacity, transform;
 }
 
+.fade-enter {
+  opacity: 0;
+  transform: translateX(50px) scaleY(0.5);
+}
+
+.fade-enter-to {
+  opacity: 1;
+  transform: translateX(0) scaleY(1);
+}
+
+.fade-leave-active {
+  position: absolute;
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: center top;
+}
 .rotate-enter {
   transform: perspective(3000px) rotate3d(0, 1, 0, 90deg);
 }

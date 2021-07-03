@@ -6,6 +6,13 @@ export const loadCharactersFromUrl = (url) =>
     return response;
   });
 
+export const loadCharacterById = (id) =>
+  apiClient
+    .get(`${process.env.VUE_APP_API_CHARACTER_ENDPOINT}/${id}`)
+    .then((response) => {
+      return response;
+    });
+
 export const generateQueryString = (filters) => {
   var query = [];
   for (var value in filters)
