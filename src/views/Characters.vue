@@ -138,6 +138,13 @@ export default {
     justify-content: space-evenly;
     flex-wrap: wrap;
   }
+
+  .--rickroller-loader {
+    animation: rotation 2s infinite linear;
+    height: 300px;
+    width: 300px;
+    margin: auto;
+  }
 }
 .fade-enter-active,
 .fade-leave-active,

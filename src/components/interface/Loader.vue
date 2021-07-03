@@ -11,5 +11,8 @@
 
 .--rickroller-loader {
   animation: rotation 2s infinite linear;
+  height: 663px;
+  width: 663px;
+  margin: auto;
 }
 </style>
