@@ -2,9 +2,10 @@
   <div class="--rickroller-character-list-wrapper">
     <div class="--rickroller-search-wrapper">
       <fade-transition>
-        <div v-if="!isLoadingCharacters">
-          <search-bar @search="searchCharacter($event)" />
+        <div class="--rickroller-filters-holder">
           <alive-status-filter />
+          <search-bar @search="searchCharacter($event)" />
+          <gender-filter />
         </div>
       </fade-transition>
     </div>
@@ -36,6 +37,7 @@ import AliveStatusFilter from "@/components/interface/filters/AliveStatusFilter"
 import FadeTransition from "@/transitions/FadeTransition";
 import { mapActions, mapGetters } from "vuex";
 import { debounce } from "lodash";
+import GenderFilter from "@/components/interface/filters/GenderFilter.vue";
 
 export default {
   components: {
@@ -43,6 +45,7 @@ export default {
     SearchBar,
     FadeTransition,
     AliveStatusFilter,
+    GenderFilter,
   },
 
   created() {
@@ -101,12 +104,25 @@ export default {
 @import "~@/assets/styles/variables";
 
 .--rickroller-character-list-wrapper {
-  padding: 4 * $mu 0;
+  padding: 0 0 4 * $mu 0;
 
   .--rickroller-search-wrapper {
+    background-color: white;
+    height: 144px;
     position: sticky;
-    top: 2 * $mu;
+    top: 0;
     z-index: 2;
+
+    .--rickroller-filters-holder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+      .--rickroller-filter-list-wrapper {
+        margin: 0 $mu;
+      }
+    }
   }
 
   .--rickroller-character-list-cards-wrapper {

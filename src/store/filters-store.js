@@ -17,7 +17,7 @@ const getters = {
       name: state.characterNameFilter,
       status: state.statusFilter,
       gender: state.genderFilter,
-    });
+    }).toLowerCase();
     return queryString.length > 0
       ? `${process.env.VUE_APP_API_CHARACTER_ENDPOINT}?${queryString}`
       : process.env.VUE_APP_API_CHARACTER_ENDPOINT;
@@ -43,11 +43,13 @@ const actions = {
     commit("setCharacterNameFilter", characterNameFilter);
     dispatch("characters/fetchCharacters", null, { root: true });
   },
-  updateStatusFilter: ({ commit }, statusFilter) => {
+  updateStatusFilter: ({ commit, dispatch }, statusFilter) => {
     commit("setStatusFilter", statusFilter);
+    dispatch("characters/fetchCharacters", null, { root: true });
   },
-  updateGenderFilter: ({ commit }, genderFilter) => {
+  updateGenderFilter: ({ commit, dispatch }, genderFilter) => {
     commit("setGenderFilter", genderFilter);
+    dispatch("characters/fetchCharacters", null, { root: true });
   },
 };
 

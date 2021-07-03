@@ -58,6 +58,7 @@ export default {
 @import "~@/assets/styles/color-mixins";
 
 .--rickroller-searchbar-wrapper {
+  height: 100%;
   height: 3 * $mu;
   width: fit-content;
   padding: $mu;

@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import apiClient from "@/services/api-client";
 
 export const loadCharactersFromUrl = (url) =>
@@ -6,13 +7,12 @@ export const loadCharactersFromUrl = (url) =>
   });
 
 export const generateQueryString = (filters) => {
-  let result = [];
-  for (var value in filters) {
-    if (filters[value]) {
-      result.push(
+  var query = [];
+  for (var value in filters)
+    if (filters.hasOwnProperty(value) && filters[value] !== undefined) {
+      query.push(
         encodeURIComponent(value) + "=" + encodeURIComponent(filters[value])
       );
     }
-    return result.join("&");
-  }
+  return query.join("&");
 };

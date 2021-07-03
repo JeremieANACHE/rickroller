@@ -2,26 +2,33 @@
   <div class="--rickroller-filter-list-wrapper">
     <button
       class="--rickroller-filter-button"
-      :class="isSelected(ALIVE_STATUS_ENUM.ALIVE) && 'selected'"
-      @click="switchStatus(ALIVE_STATUS_ENUM.ALIVE)"
+      :class="isSelected(GENDER_ENUM.FEMALE) && 'selected'"
+      @click="switchGender(GENDER_ENUM.FEMALE)"
     >
-      <icon :iconName="mdiHeartPulse" />
+      <icon :iconName="mdiGenderFemale" />
     </button>
     <button
       class="--rickroller-filter-button"
-      :class="isSelected(ALIVE_STATUS_ENUM.DEAD) && 'selected'"
-      @click="switchStatus(ALIVE_STATUS_ENUM.DEAD)"
+      :class="isSelected(GENDER_ENUM.MALE) && 'selected'"
+      @click="switchGender(GENDER_ENUM.MALE)"
     >
-      <icon :iconName="mdiSkullScan" />
+      <icon :iconName="mdiGenderMale" />
     </button>
     <button
       class="--rickroller-filter-button"
-      :class="isSelected(ALIVE_STATUS_ENUM.UNKNOWN) && 'selected'"
-      @click="switchStatus(ALIVE_STATUS_ENUM.UNKNOWN)"
+      :class="isSelected(GENDER_ENUM.GENDERLESS) && 'selected'"
+      @click="switchGender(GENDER_ENUM.GENDERLESS)"
     >
-      <icon :iconName="mdiProgressQuestion" />
+      <icon :iconName="mdiOctagonOutline" />
     </button>
-    <button class="--rickroller-filter-button" @click="switchStatus(undefined)">
+    <button
+      class="--rickroller-filter-button"
+      :class="isSelected(GENDER_ENUM.UNKNOWN) && 'selected'"
+      @click="switchGender(GENDER_ENUM.UNKNOWN)"
+    >
+      <icon :iconName="mdiCrosshairsQuestion" />
+    </button>
+    <button class="--rickroller-filter-button" @click="switchGender(undefined)">
       <icon :iconName="mdiClose" />
     </button>
   </div>
@@ -29,11 +36,12 @@
 
 <script>
 import Icon from "@/components/interface/Icon.vue";
-import ALIVE_STATUS_ENUM from "@/shared/enums/alive-status-enum";
+import GENDER_ENUM from "@/shared/enums/gender-enum";
 import {
-  mdiHeartPulse,
-  mdiSkullScan,
-  mdiProgressQuestion,
+  mdiGenderFemale,
+  mdiGenderMale,
+  mdiOctagonOutline,
+  mdiCrosshairsQuestion,
   mdiClose,
 } from "@mdi/js";
 import { mapActions, mapGetters } from "vuex";
@@ -43,33 +51,34 @@ export default {
 
   data() {
     return {
-      mdiHeartPulse,
-      mdiSkullScan,
-      mdiProgressQuestion,
+      mdiGenderFemale,
+      mdiGenderMale,
+      mdiOctagonOutline,
+      mdiCrosshairsQuestion,
       mdiClose,
-      ALIVE_STATUS_ENUM,
+      GENDER_ENUM,
     };
   },
 
   computed: {
     ...mapGetters("characters/filters", {
-      currentStatusFilter: "getStatusFilter",
+      currentGenderFilter: "getGenderFilter",
     }),
   },
 
   methods: {
     ...mapActions("characters/filters", {
-      updateStatusFilter: "updateStatusFilter",
+      updateGenderFilter: "updateGenderFilter",
     }),
 
-    switchStatus(status) {
-      this.isSelected(status)
-        ? this.updateStatusFilter(undefined)
-        : this.updateStatusFilter(status);
+    switchGender(gender) {
+      this.isSelected(gender)
+        ? this.updateGenderFilter(undefined)
+        : this.updateGenderFilter(gender);
     },
 
-    isSelected(status) {
-      return this.currentStatusFilter === status;
+    isSelected(gender) {
+      return this.currentGenderFilter === gender;
     },
   },
 };

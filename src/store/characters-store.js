@@ -39,10 +39,8 @@ const actions = {
   fetchCharacters: ({ commit, dispatch, rootGetters }) => {
     commit("setIsLoadingCharacters", true);
     const url = rootGetters["characters/filters/getFilteredSearchUrl"];
-    console.log("fetching");
     return loadCharactersFromUrl(url)
       .then((result) => {
-        console.log(result);
         const resultInfos = {
           totalCharacters: result.data.info.count,
           totalPages: result.data.info.pages,
@@ -52,6 +50,10 @@ const actions = {
         commit("setCharacters", result.data.results);
         dispatch("apiInfos/setInfos", resultInfos);
         return result;
+      })
+      .catch((error) => {
+        commit("setCharacters", []);
+        throw error;
       })
       .finally(() => {
         commit("setIsLoadingCharacters", false);
@@ -72,6 +74,10 @@ const actions = {
           };
           commit("addCharacters", newCharacters.data.results);
           commit("apiInfos/setInfos", resultInfos);
+        })
+        .catch((error) => {
+          commit("setCharacters", []);
+          throw error;
         })
         .finally(() => {
           commit("setIsLoadingCharacters", false);
