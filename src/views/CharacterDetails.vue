@@ -197,7 +197,7 @@ ul {
 
   li {
     text-align: left;
-    margin: 0.5 * $mu $mu;
+    margin: 0.5 * $mu 0.5 * $mu;
     display: inline-block;
     border: 1px solid theme-color(secondary);
     padding: 0.5 * $mu;
