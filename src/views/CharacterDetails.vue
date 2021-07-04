@@ -53,10 +53,15 @@
         </div>
 
         <div>
-          <h4 v-if="episodeList.length > 0">
+          <h2
+            class="--rickroller-episode-list-title"
+            v-if="episodeList.length > 0"
+          >
             Can be seen in {{ episodeList.length }} episode(s) :
-          </h4>
-          <h4 v-else>Can be seen in no episodes... :(</h4>
+          </h2>
+          <h2 class="--rickroller-episode-list-title" v-else>
+            Can be seen in no episodes... :(
+          </h2>
           <ul>
             <li v-for="episode in episodeList" :key="episode.id">
               <b>{{ episode.episode }}</b> - {{ episode.name }}
@@ -180,14 +185,24 @@ export default {
         }
       }
     }
+
+    .--rickroller-episode-list-title {
+      color: theme-color(primary);
+    }
   }
 }
 ul {
   columns: 3;
+  padding: 0 2 * $mu;
 
   li {
     text-align: left;
     margin: 0.5 * $mu $mu;
+    display: inline-block;
+    border: 1px solid theme-color(secondary);
+    padding: 0.5 * $mu;
+    border-radius: 0.5 * $mu;
+    width: 80%;
   }
 }
 @media only screen and (max-width: 768px) {
